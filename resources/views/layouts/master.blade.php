@@ -45,13 +45,22 @@
             <li class="nav-item active">
                 <a class="nav-link" href="{{ route('dashboard') }}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Dashboard</span></a>
+                    <span>Dashboard</span>
+                </a>
             </li>
             
             <li class="nav-item active">
                 <a class="nav-link" href="{{ route('customer.index') }}">
                     <i class="fas fa-solid fa-users"></i>
-                    <span>Customer</span></a>
+                    <span>Customer</span>
+                </a>
+            </li>
+            
+            <li class="nav-item active">
+                <a class="nav-link" href="{{ route('user.index') }}">
+                    <i class="fas fa-solid fa-user"></i>
+                    <span>User</span>
+                </a>
             </li>
 
             {{-- <!-- Divider -->
@@ -211,7 +220,7 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2025</span>
+                        <span>Copyright &copy; Lakshmi Agro 2025</span>
                     </div>
                 </div>
             </footer>
