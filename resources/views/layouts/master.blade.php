@@ -49,7 +49,7 @@
             </li>
             
             <li class="nav-item active">
-                <a class="nav-link" href="{{ route('dashboard') }}">
+                <a class="nav-link" href="{{ route('customer.index') }}">
                     <i class="fas fa-solid fa-users"></i>
                     <span>Customer</span></a>
             </li>
@@ -250,7 +250,12 @@
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+
+                        <a href="route('logout')" onclick="event.preventDefault();this.closest('form').submit();"
+                        class="btn btn-primary" href="login.html">Logout</a>
+                    </form>
                 </div>
             </div>
         </div>
@@ -273,6 +278,43 @@
     <script src="template/js/demo/chart-area-demo.js"></script>
     <script src="template/js/demo/chart-pie-demo.js"></script>
 
+    <script src="https://cdn.datatables.net/2.2.2/js/dataTables.js"></script>
+    <script src="https://cdn.datatables.net/2.2.2/js/dataTables.bootstrap4.js"></script>
+    {{-- For Sweet message alert --}}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        function errorMessage(err){
+            let errorMessage = 
+                Object.entries(err.responseJSON.errors)
+                .map(([field, message]) => `${message.join('<br>')}`)
+                .join('<br>');
+        
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                html: errorMessage,
+            });
+        }
+
+        function successMessage(message){
+            Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: message,
+                showConfirmButton: false,
+                timer: 1500
+            });
+        }
+
+        function showError(err){
+            Swal.fire({
+                icon: "error",
+                title: "Customer not Created",
+                html: err,
+            });
+        }
+    </script>
+    @yield('scripts')
 </body>
 
 </html>
