@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
@@ -23,6 +24,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/user/edit/{id}', [UserController::class, 'edit'])->name('user.edit');
     Route::post('/user/update', [UserController::class, 'update'])->name('user.update');
     Route::get('/user/delete/{id}', [UserController::class, 'delete'])->name('user.delete');
+    
+    Route::get('/categories', [CategoryController::class, 'index'])->name('category.index');
+    Route::post('/category/store', [CategoryController::class, 'store'])->name('category.store');
+    Route::get('/category/table', [CategoryController::class, 'getData'])->name('category.table');
+    Route::get('/category/edit/{id}', [CategoryController::class, 'edit'])->name('category.edit');
+    Route::post('/category/update', [CategoryController::class, 'update'])->name('category.update');
+    Route::get('/category/delete/{id}', [CategoryController::class, 'delete'])->name('category.delete');
 
 });
 
