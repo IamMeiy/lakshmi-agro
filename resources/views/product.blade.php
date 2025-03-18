@@ -7,7 +7,7 @@
     <div class="card">
         <div class="card-header">
             <div class="d-flex justify-content-between align-items-center">
-                <h6>Categories</h6>
+                <h6>Products</h6>
                 <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addProduct">Add</button>
             </div>
         </div>
@@ -24,7 +24,7 @@
         </div>
     </div>
 
-{{-- Below code for to Add Category Modal Box --}}
+{{-- Below code for to Add Product Modal Box --}}
     <div class="modal fade" id="addProduct" tabindex="-1" role="dialog" aria-labelledby="addProductLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -68,7 +68,7 @@
         </div>
     </div>
     
-{{-- Below code for to Edit Category Modal Box --}}
+{{-- Below code for to Edit Product Modal Box --}}
     <div class="modal fade" id="editProduct" tabindex="-1" role="dialog" aria-labelledby="editProductLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -130,9 +130,12 @@
                         data: 'id', 
                         name: 'id', 
                         render: function(data, type, row) {
+                            let productVariantRoute = '{{ route("variant.index", ":id") }}';
+                            let url = productVariantRoute.replace(':id', row.id);
                             return `
-                                <button class="btn btn-primary edit-btn" data-id="${row.id}" data-toggle="modal" data-target="#editProduct">Edit</button>
-                                <button class="btn btn-danger delete-btn" data-id="${row.id}">Delete</button>
+                                <a href="${url}" class="btn btn-info btn-sm">Variant</a>
+                                <button class="btn btn-primary edit-btn btn-sm" data-id="${row.id}" data-toggle="modal" data-target="#editProduct">Edit</button>
+                                <button class="btn btn-danger delete-btn btn-sm" data-id="${row.id}">Delete</button>
                             `;
                         }
                     }

@@ -7,20 +7,16 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Auth;
 
-class Product extends Model
+class ProductVariant extends Model
 {
-    /** @use HasFactory<\Database\Factories\ProductFactory> */
+    /** @use HasFactory<\Database\Factories\ProductVariantFactory> */
     use HasFactory, SoftDeletes;
 
     /* to define which dont wnat to add or insert */
     protected $guarded = [];
 
-    public function category() {
-        return $this->belongsTo(Category::class);
-    }
-
-    public function productVariants(){
-        return $this->hasMany(ProductVariant::class);
+    public function product(){
+        return $this->belongsTo(Product::class);
     }
 
     protected static function boot()

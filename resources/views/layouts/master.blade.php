@@ -12,13 +12,13 @@
     <title>@yield('title')</title>
 
     <!-- Custom fonts for this template-->
-    <link href="template/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="{{ ASSET_PATH }}/template/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link href="template/css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="{{ ASSET_PATH }}/template/css/sb-admin-2.min.css" rel="stylesheet">
 
 </head>
 
@@ -199,7 +199,7 @@
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ auth()->user()->name }}</span>
                                 <img class="img-profile rounded-circle"
-                                    src="template/img/undraw_profile.svg">
+                                    src="{{ ASSET_PATH }}/template/img/undraw_profile.svg">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -277,21 +277,21 @@
     </div>
 
     <!-- Bootstrap core JavaScript-->
-    <script src="template/vendor/jquery/jquery.min.js"></script>
-    <script src="template/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ ASSET_PATH }}/template/vendor/jquery/jquery.min.js"></script>
+    <script src="{{ ASSET_PATH }}/template/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Core plugin JavaScript-->
-    <script src="template/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="{{ ASSET_PATH }}/template/vendor/jquery-easing/jquery.easing.min.js"></script>
 
     <!-- Custom scripts for all pages-->
-    <script src="template/js/sb-admin-2.min.js"></script>
+    <script src="{{ ASSET_PATH }}/template/js/sb-admin-2.min.js"></script>
 
     <!-- Page level plugins -->
-    <script src="template/vendor/chart.js/Chart.min.js"></script>
+    <script src="{{ ASSET_PATH }}/template/vendor/chart.js/Chart.min.js"></script>
 
     <!-- Page level custom scripts -->
-    <script src="template/js/demo/chart-area-demo.js"></script>
-    <script src="template/js/demo/chart-pie-demo.js"></script>
+    <script src="{{ ASSET_PATH }}/template/js/demo/chart-area-demo.js"></script>
+    <script src="{{ ASSET_PATH }}/template/js/demo/chart-pie-demo.js"></script>
 
     <script src="https://cdn.datatables.net/2.2.2/js/dataTables.js"></script>
     <script src="https://cdn.datatables.net/2.2.2/js/dataTables.bootstrap4.js"></script>

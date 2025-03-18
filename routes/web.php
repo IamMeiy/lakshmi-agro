@@ -4,6 +4,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProductVariantController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -39,6 +40,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/product/edit/{id}', [ProductController::class, 'edit'])->name('product.edit');
     Route::post('/product/update', [ProductController::class, 'update'])->name('product.update');
     Route::get('/product/delete/{id}', [ProductController::class, 'delete'])->name('product.delete');
+
+    Route::get('/product-variant/{id}', [ProductVariantController::class, 'index'])->name('variant.index');
+    Route::get('/variant/table/{id}', [ProductVariantController::class, 'getData'])->name('variant.table');
+    Route::post('/variant/store', [ProductVariantController::class, 'store'])->name('variant.store');
+    Route::get('/variant/edit/{id}', [ProductVariantController::class, 'edit'])->name('variant.edit');
+    Route::post('/variant/update', [ProductVariantController::class, 'update'])->name('variant.update');
+    Route::get('/variant/delete/{id}', [ProductVariantController::class, 'delete'])->name('variant.delete');
 
 });
 
