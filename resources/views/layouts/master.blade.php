@@ -64,6 +64,13 @@
             </li>
             
             <li class="nav-item active">
+                <a class="nav-link" href="{{ route('category.index') }}">
+                    <i class="fas fa-solid fa-layer-group"></i>
+                    <span>Products</span>
+                </a>
+            </li>
+
+            <li class="nav-item active">
                 <a class="nav-link" href="{{ route('user.index') }}">
                     <i class="fas fa-solid fa-user"></i>
                     <span>User</span>

@@ -19,7 +19,7 @@ class CustomerController extends Controller
     public function store(Request $request){
         $request->validate([
             'name' => 'required',
-            'mobile' => 'required|min:10|unique:'.Customer::class,
+            'mobile' => 'required|min:10|unique:customers,mobile,NULL,id,deleted_at,NULL',
             'email' => 'nullable|email',
             'farmer' => 'nullable'
         ],
@@ -64,7 +64,7 @@ class CustomerController extends Controller
     public function update(Request $request){
         $request->validate([
             'name' => 'required',
-            'mobile' => 'required|min:10|unique:customers,mobile,'.$request->cust_id,
+            'mobile' => 'required|min:10|unique:customers,mobile,'.$request->cust_id.',id,deleted_at,NULL',
             'email' => 'nullable|email',
             'farmer' => 'nullable'
         ],
