@@ -20,6 +20,8 @@
     <!-- Custom styles for this template-->
     <link href="{{ ASSET_PATH }}/template/css/sb-admin-2.min.css" rel="stylesheet">
 
+    {{-- for Select 2 --}}
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 </head>
 
 <body id="page-top">
@@ -67,6 +69,13 @@
                 <a class="nav-link" href="{{ route('product.index') }}">
                     <i class="fas fa-solid fa-list"></i>
                     <span>Products</span>
+                </a>
+            </li>
+            
+            <li class="nav-item active">
+                <a class="nav-link" href="{{ route('invoice.index') }}">
+                    <i class="fas fa-solid fa-receipt"></i>
+                    <span>Billing</span>
                 </a>
             </li>
 
@@ -297,7 +306,11 @@
     <script src="https://cdn.datatables.net/2.2.2/js/dataTables.bootstrap4.js"></script>
     {{-- For Sweet message alert --}}
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script>
+        $('.select2').select2({
+            theme: 'classic',
+        });
         function errorMessage(err){
             let errorMessage = 
                 Object.entries(err.responseJSON.errors)
@@ -324,7 +337,7 @@
         function showError(err){
             Swal.fire({
                 icon: "error",
-                title: "Customer not Created",
+                title: "Error",
                 html: err,
             });
         }

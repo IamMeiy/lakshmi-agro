@@ -3,6 +3,7 @@
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductVariantController;
 use App\Http\Controllers\ProfileController;
@@ -47,7 +48,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/variant/edit/{id}', [ProductVariantController::class, 'edit'])->name('variant.edit');
     Route::post('/variant/update', [ProductVariantController::class, 'update'])->name('variant.update');
     Route::get('/variant/delete/{id}', [ProductVariantController::class, 'delete'])->name('variant.delete');
+    
+    Route::get('/invoice', [InvoiceController::class, 'index'])->name('invoice.index');
+    Route::get('/invoice/create', [InvoiceController::class, 'create'])->name('invoice.create');
+    
 
+    
+    Route::get('/get-variant', [ProductVariantController::class, 'getVariant'])->name('get.variant');
 });
 
 

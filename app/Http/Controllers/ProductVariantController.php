@@ -104,4 +104,15 @@ class ProductVariantController extends Controller
         }
         return response()->json($message);
     }
+
+    /*  below code for to get variant details */
+    public function getVariant(Request $request){
+        $variant = ProductVariant::with('product')->find($request->variant_id);
+        if($variant){
+            return response()->json($variant);
+        }
+        else{
+            return response()->json(['status' => 'error', 'message'=> "Can't find Product"]);
+        }
+    }
 }

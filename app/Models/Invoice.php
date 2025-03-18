@@ -7,21 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Auth;
 
-class Product extends Model
+class Invoice extends Model
 {
-    /** @use HasFactory<\Database\Factories\ProductFactory> */
+    /** @use HasFactory<\Database\Factories\InvoiceFactory> */
     use HasFactory, SoftDeletes;
 
-    /* to define which dont wnat to add or insert */
     protected $guarded = [];
-
-    public function category() {
-        return $this->belongsTo(Category::class);
-    }
-
-    public function variants(){
-        return $this->hasMany(ProductVariant::class);
-    }
 
     protected static function boot()
     {
@@ -48,4 +39,5 @@ class Product extends Model
             }
         });
     }
+
 }
