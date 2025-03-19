@@ -11,15 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('invoices', function (Blueprint $table) {
+        Schema::create('invoice_items', function (Blueprint $table) {
             $table->id();
-            $table->string('invoice_number')->unique();
-            $table->foreignIdFor(\App\Models\Customer::class);
-            $table->decimal('sub_total', 10,2);
-            $table->decimal('final_price', 10,2);
-            $table->decimal('amount_paid', 10,2);
-            $table->decimal('balance_amount', 10,2);
-            $table->string('payment_mode');
+            $table->foreignIdFor(\App\Models\Invoice::class);
+            $table->foreignIdFor(\App\Models\Product::class);
+            $table->integer('quantity');
+            $table->decimal('unit_price', 10, 2);
+            $table->decimal('total', 10, 2);
             $table->unsignedBigInteger('created_by')->nullable();
             $table->unsignedBigInteger('modified_by')->nullable();
             $table->unsignedBigInteger('deleted_by')->nullable();
@@ -33,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('invoices');
+        Schema::dropIfExists('invoice_items');
     }
 };

@@ -50,7 +50,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/variant/delete/{id}', [ProductVariantController::class, 'delete'])->name('variant.delete');
     
     Route::get('/invoice', [InvoiceController::class, 'index'])->name('invoice.index');
+    Route::get('/invoice/table', [InvoiceController::class, 'getData'])->name('invoice.table');
     Route::get('/invoice/create', [InvoiceController::class, 'create'])->name('invoice.create');
+    Route::get('/invoice/getFinalPrice', [InvoiceController::class, 'finalPrice'])->name('invoice.finalPrice');
+    Route::post('/invoice/store', [InvoiceController::class, 'store'])->name('invoice.store');
     
 
     

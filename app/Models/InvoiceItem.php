@@ -2,24 +2,18 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Auth;
 
-class Invoice extends Model
+class InvoiceItem extends Model
 {
-    /** @use HasFactory<\Database\Factories\InvoiceFactory> */
-    use HasFactory, SoftDeletes;
+    use SoftDeletes;
 
     protected $guarded = [];
 
-    public function items(){
-        return $this->hasMany(InvoiceItem::class);
-    }
-
-    public function customer(){
-        return $this->belongsTo(Customer::class);
+    public function invoice(){
+        return $this->belongsTo(Invoice::class);
     }
 
     protected static function boot()
@@ -47,5 +41,4 @@ class Invoice extends Model
             }
         });
     }
-
 }

@@ -7,3 +7,11 @@ if (!defined('APP_URL')) {
 if (!defined('ASSET_PATH')) {
     define('ASSET_PATH', APP_URL . '/public');
 }
+
+if (!defined('PAYMENT_TYPE')) {
+    define('PAYMENT_TYPE', [
+        1 => 'UPI',
+        2 => 'CASH',
+        3 => 'NOT PAID'
+    ]);
+}
