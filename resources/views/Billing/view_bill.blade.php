@@ -8,7 +8,13 @@
         <div class="card-header">
             <div class="d-flex justify-content-between align-items-center">
                 <h6>Invoice Details</h6>
-                <a href="{{ route('invoice.index') }}" class="btn btn-primary btn-sm">Back</a>
+                <div class="btn-group">
+                    <!-- Preview PDF -->
+                    <a href="{{ route('invoice.preview', $invoice->id) }}" target="_blank" class="btn btn-success btn-sm">Preview</a>
+                    <!-- Download PDF -->
+                    <a href="{{ route('invoice.download', $invoice->id) }}" class="btn btn-primary btn-sm ml-2">Download</a>
+                    <a href="{{ route('invoice.index') }}" class="btn btn-primary btn-sm ml-2">Back</a>
+                </div>
             </div>
         </div>
         <div class="card-body">

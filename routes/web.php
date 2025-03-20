@@ -60,6 +60,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/invoice/updateBill', [InvoiceController::class, 'update'])->name('invoice.update');
     Route::get('/invoice/viewBill/{id}', [InvoiceController::class, 'view'])->name('invoice.viewBill');
     Route::get('/invoice/delete/{id}', [InvoiceController::class, 'delete'])->name('invoice.delete');
+    Route::get('/invoice/download/{id}', [InvoiceController::class, 'downloadPdf'])->name('invoice.download');
+    Route::get('/invoice/preview/{id}', [InvoiceController::class, 'previewPdf'])->name('invoice.preview');
     
 
     

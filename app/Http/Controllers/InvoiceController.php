@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\DataTables;
+use Spatie\LaravelPdf\Facades\Pdf;
 
 class InvoiceController extends Controller
 {
@@ -215,4 +216,32 @@ class InvoiceController extends Controller
         }
         return response()->json($message);
     }
+
+    /* below function to preview invoice pdf  */
+    public function previewPdf($id)
+    {
+        $invoice = Invoice::with('items.variant.product', 'customer')->find($id);
+
+        if (!$invoice) {
+            return redirect()->route('invoice.index')->with('error', 'Invoice not found.');
+        }
+
+        return Pdf::view('Billing.invoice_pdf', ['invoice' => $invoice])
+            ->format('A4')
+            ->inline('invoice-' . $invoice->invoice_number . '.pdf');
+    }
+    /* below function to download invoice pdf  */
+    public function downloadPdf($id)
+    {
+        $invoice = Invoice::with('items.variant.product', 'customer')->find($id);
+
+        if (!$invoice) {
+            return redirect()->route('invoice.index')->with('error', 'Invoice not found.');
+        }
+
+        return Pdf::view('Billing.invoice_pdf', ['invoice' => $invoice])
+            ->format('A4')
+            ->download('invoice-' . $invoice->invoice_number . '.pdf');
+    }
+
 }

@@ -15,3 +15,19 @@ if (!defined('PAYMENT_TYPE')) {
         3 => 'NOT PAID'
     ]);
 }
+
+if (!defined('SHOP_NAME')) {
+    define('SHOP_NAME', 'LAKSHMI AGRO');
+}
+
+if (!defined('SHOP_ADDRESS')) {
+    define('SHOP_ADDRESS', 'Poolampatti');
+}
+
+if (!defined('SHOP_PHONE')) {
+    define('SHOP_PHONE', '90258 04086');
+}
+
+if (!defined('SHOP_EMAIL')) {
+    define('SHOP_EMAIL', 'vikramperumal0747@gmail.com');
+}
