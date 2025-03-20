@@ -73,6 +73,11 @@
 
         .invoice-items th {
             background-color: #f2f2f2;
+            font-size: 12px;
+        }
+
+        .invoice-items td {
+            font-size: 12px;
         }
 
         .invoice-items td:nth-child(2),
@@ -81,7 +86,7 @@
         .invoice-items td:nth-child(5),
         .invoice-items td:nth-child(6),
         .invoice-items td:nth-child(7) {
-            text-align: right; /* Aligns numeric values for better readability */
+            text-align: center; /* Aligns numeric values for better readability */
         }
 
         table {
@@ -138,16 +143,16 @@
                 <p>Email: {{ SHOP_EMAIL }}</p>
             </div>
         </div>
-        <table class="invoice-items">
+        <table class="invoice-items" width="100%" style="border-collapse: collapse;">
             <thead>
                 <tr>
-                    <th>Product</th>
-                    <th>Unit Price</th>
-                    <th>Quantity</th>
-                    <th>Sub Total</th>
-                    <th>Tax</th>
-                    <th>Tax Amount</th>
-                    <th>Total</th>
+                    <th width="30%">Product</th>
+                    <th width="10%">Unit Price</th>
+                    <th width="10%">Tax</th>
+                    <th width="10%">Quantity</th>
+                    <th width="15%">Sub Total</th>
+                    <th width="10%">Total Tax</th>
+                    <th width="15%">Final Price</th>
                 </tr>
             </thead>
             <tbody>
@@ -156,45 +161,43 @@
                     $total_tax = 0.00;
                     $total_sub_total = 0.00;
                 @endphp
+
                 @foreach ($invoice->items as $item)
                     @php
                         $quantity += $item->quantity;
-                        $tax = $item->variant->product->category->tax;
-                
-                        // Calculate Base Price (Price before tax)
-                        $base_price = $item->unit_price / (1 + ($tax / 100));
-                
-                        // Calculate subtotal (Base Price * Quantity)
-                        $sub_total = $base_price * $item->quantity;
+                        $tax = $item->variant->product->category->tax; // Tax Percentage
 
+                        // ✅ Extract Correct Base Price (Before Tax)
+                        $basic_price = round($item->unit_price / (1 + ($tax / 100)), 2);
+
+                        // ✅ Subtotal Calculation (Rounded)
+                        $sub_total = round($basic_price * $item->quantity, 2);
                         $total_sub_total += $sub_total;
-                
-                        // Calculate tax amount per unit
-                        $tax_amount = $base_price * ($tax / 100);
 
-                        $total_tax += $tax_amount;
-                
-                        // Calculate total amount (Subtotal + Total Tax Amount)
-                        $total_amount = $sub_total + ($tax_amount * $item->quantity);
+                        // ✅ Correct Total Tax Calculation (Rounded)
+                        $total_tax_for_item = round(($item->unit_price - $basic_price) * $item->quantity, 2);
+                        $total_tax += $total_tax_for_item;
+
+                        // ✅ Final Total (Rounded)
+                        $total_amount = round($sub_total + $total_tax_for_item, 2);
                     @endphp
                     <tr>
                         <td>{{ $item->variant->product->name }} - {{ $item->variant->quantity }}g</td>
-                        <td>{{ number_format($base_price, 2) }}</td>  <!-- Price Before Tax -->
+                        <td>{{ number_format($basic_price, 2) }}</td>  <!-- Base Price (Before Tax) -->
+                        <td>{{ number_format($tax, 2) }}%</td>  <!-- Tax Percentage -->
                         <td>{{ $item->quantity }}</td>  <!-- Quantity -->
-                        <td>{{ number_format($total_sub_total, 2) }}</td>  <!-- Subtotal (Base Price * Quantity) -->
-                        <td>{{ number_format($tax, 2) }}%</td>  <!-- Tax Percent -->
-                        <td>{{ number_format($tax_amount, 2) }}</td>  <!-- Tax Amount Per Unit -->
-                        <td>{{ number_format($total_amount, 2) }}</td>  <!-- Final Amount -->
+                        <td>{{ number_format($sub_total, 2) }}</td>  <!-- Subtotal -->
+                        <td>{{ number_format($total_tax_for_item, 2) }}</td>  <!-- Total Tax -->
+                        <td>{{ number_format($total_amount, 2) }}</td>  <!-- Final Price -->
                     </tr>
                 @endforeach
             
             </tbody>
             <tfoot>
                 <tr>
-                    <td colspan="2">Total</td>
+                    <td colspan="3">Total</td>
                     <td>{{ $quantity }}</td>
                     <td>{{ number_format($total_sub_total, 2) }}</td>
-                    <td>Tax</td>
                     <td>{{ number_format($total_tax, 2) }}</td>
                     <td>{{ number_format($invoice->sub_total, 2) }}</td>
                 </tr>
@@ -212,7 +215,7 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>{{ number_format($total_sub_total, 2) }}</td>
+                    <td style="text-align: center; word-wrap: break-word; white-space: normal;">{{ number_format($total_sub_total, 2) }}</td>
                     <td>{{ number_format($total_tax, 2) }}</td>
                     <td>{{ $invoice->sub_total }}</td>
                     <td>{{ $invoice->final_price }}</td>
