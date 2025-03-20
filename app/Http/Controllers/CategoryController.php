@@ -85,8 +85,6 @@ class CategoryController extends Controller
     public function delete($id){
         $category = Category::find($id);
         if($category){
-            $category->deleted_by = Auth::id();
-            $category->save();
             $category->delete();
             $message = ['status' => 'success', 'message' => 'Category Deleted!'];
         }

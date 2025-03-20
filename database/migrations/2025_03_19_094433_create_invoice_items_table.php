@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('invoice_items', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(\App\Models\Invoice::class);
-            $table->foreignIdFor(\App\Models\Product::class);
+            $table->foreignIdFor(\App\Models\ProductVariant::class);
             $table->integer('quantity');
             $table->decimal('unit_price', 10, 2);
             $table->decimal('total', 10, 2);

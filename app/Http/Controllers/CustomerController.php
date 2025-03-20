@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Customer;
+use App\Models\Invoice;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -96,8 +97,6 @@ class CustomerController extends Controller
     public function delete($id){
         $customer = Customer::find($id);
         if($customer){
-            $customer->deleted_by = Auth::id();
-            $customer->save();
             $customer->delete();
             $message = ['status' => 'success', 'message' => 'Customer Deleted!'];
         }
@@ -105,5 +104,29 @@ class CustomerController extends Controller
             $message = ['status' => 'error', 'message' => 'Customer Not Deleted !'];
         }
         return response()->json($message);
+    }
+
+    /* below function for to get the customer bills */
+    public function view($id){
+        $customer = Customer::find($id);
+        return view('Billing.customer_bill', compact('customer','id'));
+    }
+
+    public function getBills($id){
+        $invoices = Invoice::with('customer')->where('customer_id', $id)->latest();
+        return DataTables::of($invoices)
+            ->addColumn('customer_name', function ($row) {
+                return $row->customer ? $row->customer->name : ''; // Assuming 'name' is a field in the 'customer' table
+            })
+            ->addColumn('customer_mobile', function ($row) {
+                return $row->customer ? $row->customer->mobile : ''; // Assuming 'mobile' is a field in the 'customer' table
+            })
+            ->filterColumn('customer_name', function ($query, $keyword) {
+                $query->whereHas('customer', function ($q) use ($keyword) {
+                    $q->where('name', 'like', "%$keyword%")
+                    ->orWhere('mobile', 'like', "%$keyword%"); // Searching both name and mobile
+                });
+            })
+        ->make(true);
     }
 }

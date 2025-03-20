@@ -94,8 +94,6 @@ class ProductVariantController extends Controller
     public function delete($id){
         $variant = ProductVariant::find($id);
         if($variant){
-            $variant->deleted_by = Auth::id();
-            $variant->save();
             $variant->delete();
             $message = ['status' => 'success', 'message' => 'Variant Deleted!'];
         }

@@ -20,6 +20,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/customer/edit/{id}', [CustomerController::class, 'edit'])->name('customer.edit');
     Route::post('/customer/update', [CustomerController::class, 'update'])->name('customer.update');
     Route::get('/customer/delete/{id}', [CustomerController::class, 'delete'])->name('customer.delete');
+    Route::get('/customer/view/{id}', [CustomerController::class, 'view'])->name('customer.view');
+    Route::get('/customer/bills/{id}', [CustomerController::class, 'getBills'])->name('customer.bills');
     
     Route::get('/users', [UserController::class, 'index'])->name('user.index');
     Route::get('/users/data', [UserController::class, 'getData'])->name('user.table');
@@ -54,6 +56,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/invoice/create', [InvoiceController::class, 'create'])->name('invoice.create');
     Route::get('/invoice/getFinalPrice', [InvoiceController::class, 'finalPrice'])->name('invoice.finalPrice');
     Route::post('/invoice/store', [InvoiceController::class, 'store'])->name('invoice.store');
+    Route::get('/invoice/editBill', [InvoiceController::class, 'edit'])->name('invoice.edit');
+    Route::post('/invoice/updateBill', [InvoiceController::class, 'update'])->name('invoice.update');
+    Route::get('/invoice/viewBill/{id}', [InvoiceController::class, 'view'])->name('invoice.viewBill');
+    Route::get('/invoice/delete/{id}', [InvoiceController::class, 'delete'])->name('invoice.delete');
     
 
     

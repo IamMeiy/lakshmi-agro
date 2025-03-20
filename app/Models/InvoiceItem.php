@@ -16,6 +16,10 @@ class InvoiceItem extends Model
         return $this->belongsTo(Invoice::class);
     }
 
+    public function variant(){
+        return $this->belongsTo(ProductVariant::class, 'product_variant_id');
+    }
+
     protected static function boot()
     {
         parent::boot();
@@ -38,6 +42,7 @@ class InvoiceItem extends Model
         static::deleting(function ($customer) {
             if (Auth::check()) {
                 $customer->deleted_by = Auth::id(); // Set the currently authenticated user's ID
+                $customer->save();
             }
         });
     }

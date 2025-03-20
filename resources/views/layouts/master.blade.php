@@ -285,6 +285,55 @@
         </div>
     </div>
 
+    {{-- Edit Bill Modal --}}
+    <div class="modal fade" id="editBill" tabindex="-1" role="dialog" aria-labelledby="editBillLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editBillLabel">Edit Bill</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <form id="editBillForm">
+                    @csrf
+                    <input type="hidden" name="bill_id" id="bill-edit-id" value="">
+                    <div class="modal-body">
+                        <table class="table table-bordered">
+                            <thead>
+                                <th>NAME</th>
+                                <th>INVOICE</th>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td id="bill-edit-name"></td>
+                                    <td id="bill-edit-invoice"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="form-group">
+                            <label for="" class="form-label">Payment Type</label>
+                            <select id="bill-edit-type" name="payment_type" class="form-control">
+                                @foreach (PAYMENT_TYPE as $payment)
+                                    <option value="{{ $payment }}">{{ $payment }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="form-label">Amount Paid</label>
+                            <input type="text" id="bill-edit-balance" name="balance_amount" class="form-control">
+                        </div>
+                        
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                        <button class="btn btn-primary" id="billupdateBtn" type="submit">Update</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <!-- Bootstrap core JavaScript-->
     <script src="{{ ASSET_PATH }}/template/vendor/jquery/jquery.min.js"></script>
     <script src="{{ ASSET_PATH }}/template/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -308,9 +357,119 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script>
+        /* this will convert normal select box to searchable */
         $('.select2').select2({
             theme: 'classic',
         });
+
+        /* this function get the bill details to edit */
+        function editBillDetails(id){
+            $.ajax({
+                url: '{{ route('invoice.edit') }}',
+                type: 'GET',
+                data: {
+                    'id' : id
+                },
+                beforeSend: function(){
+                    $('#bill-edit-name').empty();
+                    $('#bill-edit-invoice').empty();
+                    $('#editBillForm').trigger('reset');
+                },
+                success: function(result){
+                    if(result.status == 'success'){
+                        $('#bill-edit-name').text(result.invoice.customer.name);
+                        $('#bill-edit-invoice').text(result.invoice.invoice_number);
+                        $('#bill-edit-id').val(result.invoice.id);
+                        $('#bill-edit-balance').val(result.invoice.balance_amount);
+                        $('#bill-edit-type').val(result.invoice.payment_mode);
+                        $('#editBill').modal('show');
+                    }
+                    else{
+                        showError(result.message);
+                    }
+                },
+                error: function(err){
+                    errorMessage(err);
+                }
+            });
+        }
+
+        /* below function to update the bill */
+        $(document).on('submit', '#editBillForm', function(event){
+            event.preventDefault();
+            let formData = $(this).serialize();
+            $.ajax({
+                url : '{{ route('invoice.update') }}',
+                type : 'POST',
+                data : formData,
+                beforeSend: function(){
+                    $('#billupdateBtn').prop('disabled', true);
+                },
+                success: function(result){
+                    if(result.status == 'success'){
+                        successMessage(result.message);
+                    }
+                    else{
+                        showError(result.message);
+                    }
+                    $('#billupdateBtn').prop('disabled', false);
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 1500);
+                },
+                error: function(err){
+                    errorMessage(err);
+                    $('#billupdateBtn').prop('disabled', false);
+
+                }
+            });
+
+        });
+
+        /* below function to delete the bill */
+        function deleteBill(id){
+            let dataId = id;
+            let deleteUrl = "{{ route('invoice.delete', ':id') }}";
+            let url = deleteUrl.replace(':id', dataId);
+            
+            Swal.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!"
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: url,
+                        type: 'GET',
+                        success: function(result){
+                            if(result.status == 'success'){
+                                Swal.fire({
+                                    title: "Deleted!",
+                                    text: "Your data has been deleted.",
+                                    icon: "success"
+                                });
+                                setTimeout(() => {
+                                    window.location.reload();
+                                }, 1500);
+                            }
+                            else{
+                                Swal.fire({
+                                    title: "Not Deleted!",
+                                    text: "Your data hasn't been deleted.",
+                                    icon: "error"
+                                });
+                            }
+                        }
+                    });
+                }
+            });
+        }
+        
+        /* for show error message */
         function errorMessage(err){
             let errorMessage = 
                 Object.entries(err.responseJSON.errors)
@@ -324,6 +483,7 @@
             });
         }
 
+        /* for show success message */
         function successMessage(message){
             Swal.fire({
                 position: "top-end",
@@ -334,6 +494,7 @@
             });
         }
 
+        /* for show error message */
         function showError(err){
             Swal.fire({
                 icon: "error",

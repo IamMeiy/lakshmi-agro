@@ -19,7 +19,7 @@
                     <th>MOBILE</th>
                     <th>EMAIL</th>
                     <th>CUSTOMER TYPE</th>
-                    <th>ACTION</th>
+                    <th class="w-25">ACTION</th>
                 </thead>
             </table>
         </div>
@@ -128,7 +128,9 @@
                         data: 'id', 
                         name: 'id', 
                         render: function(data, type, row) {
+                            let url = `{{ route('customer.view', '') }}/${row.id}`;
                             return `
+                                <a href="${url}" class="btn btn-success">View</a>
                                 <button class="btn btn-primary edit-btn" data-id="${row.id}" data-toggle="modal" data-target="#editCustomer">Edit</button>
                                 <button class="btn btn-danger delete-btn" data-id="${row.id}">Delete</button>
                             `;

@@ -41,6 +41,7 @@ class ProductVariant extends Model
         static::deleting(function ($customer) {
             if (Auth::check()) {
                 $customer->deleted_by = Auth::id(); // Set the currently authenticated user's ID
+                $customer->save();
             }
         });
     }

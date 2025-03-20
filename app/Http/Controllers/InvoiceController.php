@@ -6,7 +6,9 @@ use App\Models\Customer;
 use App\Models\Invoice;
 use App\Models\Product;
 use App\Models\ProductVariant;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\DataTables;
 
@@ -89,7 +91,8 @@ class InvoiceController extends Controller
                 $today = date('Ymd');
 
                 // Get the latest invoice for today
-                $lastInvoice = Invoice::whereDate('created_at', today())->orderBy('id', 'desc')->first();
+                $lastInvoice = Invoice::
+                    whereDate('created_at', Carbon::now('Asia/Kolkata')->toDateString())->orderBy('id', 'desc')->first();
 
                 // Set the new invoice number
                 $nextNumber = $lastInvoice ? ((int) str_replace("INV-{$today}-", '', $lastInvoice->invoice_number) + 1) : 1;
@@ -109,7 +112,7 @@ class InvoiceController extends Controller
                     $product = ProductVariant::find($product);
                     if($product){
                         $invoice->items()->create([
-                            'product_id' => $product->id,
+                            'product_variant_id' => $product->id,
                             'quantity' => $request->quantity[$index],
                             'unit_price' => $product->price,
                             'total' => $request->quantity[$index] * $product->price,
@@ -146,5 +149,70 @@ class InvoiceController extends Controller
             })
         ->make(true);
 
+    }
+
+    /* below function to get the particular data to edit */
+    public function edit(Request $request){
+        if($request->ajax()){
+            $invoice = Invoice::with('customer')->find($request->id);
+            if($invoice){
+                return response()->json(['status' => 'success', 'invoice' => $invoice]);
+            }
+            else{
+                return response()->json(['status' => 'error', 'message' => 'Invoice not found']);
+            }
+        }
+    }
+
+    /* below function to update the bill details */
+    public function update(Request $request){
+        $request->validate([
+            'bill_id' => 'required',
+            'payment_type' => 'required',
+            'balance_amount' => 'required|numeric|min:1',
+        ]);
+
+        DB::beginTransaction();
+        try {
+            $invoice = Invoice::find($request->bill_id);
+            if($invoice){
+                $invoice->update([
+                    'amount_paid' => $invoice->amount_paid + $request->balance_amount,
+                    'balance_amount' => $invoice->balance_amount - $request->balance_amount,
+                    'payment_mode' => $request->payment_type
+                ]);
+
+                DB::commit();
+                $message = ['status' => 'success', 'message' => 'Invoice Updated!'];
+            }
+            else{
+                DB::rollBack();
+                $message = ['status' => 'error', 'message' => 'Ivoice not updated'];
+            }
+        } catch (\Exception $e) {
+            DB::rollBack();
+            $message = ['status' => 'error', 'message' => $e->getMessage()];
+        }
+
+        return response()->json($message);
+    }
+
+    /* below fuction to view particular bill details */
+    public function view($id){
+        $invoice = Invoice::with('items.variant.product', 'customer')->find($id);
+        return view('Billing.view_bill', compact('invoice'));
+    }
+
+    /* below function to delete the bill */
+    public function delete($id){
+        $invoice = Invoice::find($id);
+        if($invoice){
+            $invoice->delete();
+            $message = ['status' => 'success', 'message' => 'Invoice Deleted!'];
+        }
+        else{
+            $message = ['status' => 'error', 'message' => 'Invoice Not Deleted !'];
+        }
+        return response()->json($message);
     }
 }
