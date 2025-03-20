@@ -26,7 +26,7 @@
             box-sizing: border-box;
             background-color: #ffffff;
             margin: 0 auto;
-            margin-top: -40px;
+            margin-top: -75px;
             position: relative;
         }
 
@@ -121,8 +121,9 @@
 <body>
     <div class="invoice-container">
         <div class="header">
-            <strong>Invoice</strong><br>
+            <strong>Invoice No : </strong>
             <span>{{ $invoice->invoice_number }}</span><br>
+            <strong>Date : </strong>
             <span>{{ $invoice->created_at->format('F d, Y') }}</span>
         </div>
 

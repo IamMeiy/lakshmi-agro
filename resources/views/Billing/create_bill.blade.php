@@ -227,7 +227,8 @@
                             $('#balance').empty();
                         }
                         else{
-                            showError('Please Try Again!');
+                            showError(result.message);
+                            $('#submitBtn').prop('disabled', false);
                         }
                     },
                     error: function(err){
