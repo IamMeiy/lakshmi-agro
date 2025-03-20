@@ -18,6 +18,7 @@ class CategoryController extends Controller
     public function store(Request $request){
         $request->validate([
             'name' => 'required',
+            'tax' => 'nullable|numeric',
             'description' => 'nullable'
         ],
         [
@@ -28,6 +29,7 @@ class CategoryController extends Controller
         try {   
             $cust = Category::create([
                 'name' => $request->name,
+                'tax' => $request->tax ?? 0,
                 'description' => $request->description,
             ]);
             DB::commit();
@@ -58,6 +60,7 @@ class CategoryController extends Controller
     public function update(Request $request){
         $request->validate([
             'name' => 'required',
+            'tax' => 'nullable|numeric',
             'description' => 'nullable'
         ],
         [
@@ -69,6 +72,7 @@ class CategoryController extends Controller
         try {   
             $cust->update([
                 'name' => $request->name,
+                'tax' => $request->tax ?? 0,
                 'description' => $request->description,
             ]);
             DB::commit();

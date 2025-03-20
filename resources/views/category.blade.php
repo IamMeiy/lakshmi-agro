@@ -16,6 +16,7 @@
                 <thead>
                     <th>ID</th>
                     <th>NAME</th>
+                    <th>TAX</th>
                     <th>DESCRIPTION</th>
                     <th>ACTIONS</th>
                 </thead>
@@ -39,6 +40,10 @@
                         <div class="form-group">
                             <label class="form-label">Name</label>
                             <input type="text" class="form-control" name="name">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Tax</label>
+                            <input type="text" class="form-control" name="tax">
                         </div>
                         <div class="form-group">
                             <label class="form-label">Description <span>(optional)</span> </label>
@@ -73,6 +78,10 @@
                             <input type="text" id="editName" class="form-control" name="name">
                         </div>
                         <div class="form-group">
+                            <label class="form-label">Tax</label>
+                            <input type="text" id="editTax" class="form-control" name="tax">
+                        </div>
+                        <div class="form-group">
                             <label class="form-label">Description <span>(optional)</span> </label>
                             <input type="text" id="editDescription" class="form-control" name="description">
                         </div>
@@ -97,6 +106,7 @@
                 columns: [
                     { data: 'id', name: 'id' },
                     { data: 'name', name: 'name' },
+                    { data: 'tax', name: 'tax' },
                     { data: 'description', name: 'description' },
                     { 
                         data: 'id', 
@@ -111,7 +121,7 @@
                 ],
                 columnDefs: [
                     {
-                        targets: 3,    // 'action' column (index 5)
+                        targets: 4,    // 'action' column (index 5)
                         orderable: false, // Make sure the action column is not sortable
                         searchable: false // Make sure the action column is not searchable
                     }
@@ -163,6 +173,7 @@
                             if(result){
                                 $('#cate_id').val(result.id);
                                 $('#editName').val(result.name);
+                                $('#editTax').val(result.tax);
                                 $('#editDescription').val(result.description);
                             }
                         }
