@@ -221,7 +221,7 @@
                     <td>{{ $invoice->sub_total }}</td>
                     <td>{{ $invoice->final_price }}</td>
                     <td>{{ $invoice->amount_paid }}</td>
-                    <td>{{ $invoice->balance_amount == 0 ? 'PAID' : 'NOT PAID' }}</td>
+                    <td>{{ $invoice->balance_amount == 0 ? 'PAID' : 'PENDING' }}</td>
                 </tr>
             </tbody>
         </table>
