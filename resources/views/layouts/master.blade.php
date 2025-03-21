@@ -21,7 +21,7 @@
     <link href="{{ ASSET_PATH }}/template/css/sb-admin-2.min.css" rel="stylesheet">
 
     {{-- for Select 2 --}}
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link href="{{ ASSET_PATH }}/custom/select2/select2.min.css" rel="stylesheet" />
 </head>
 
 <body id="page-top">
@@ -351,11 +351,11 @@
     <script src="{{ ASSET_PATH }}/template/js/demo/chart-area-demo.js"></script>
     <script src="{{ ASSET_PATH }}/template/js/demo/chart-pie-demo.js"></script>
 
-    <script src="https://cdn.datatables.net/2.2.2/js/dataTables.js"></script>
-    <script src="https://cdn.datatables.net/2.2.2/js/dataTables.bootstrap4.js"></script>
+    <script src="{{ ASSET_PATH }}/custom/datatable/dataTables.js"></script>
+    <script src="{{ ASSET_PATH }}/custom/datatable/dataTables.bootstrap4.js"></script>
     {{-- For Sweet message alert --}}
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="{{ ASSET_PATH }}/custom/sweetalert/sweetalert2.js"></script>
+    <script src="{{ ASSET_PATH }}/custom/select2/select2.min.js"></script>
     <script>
         /* this will convert normal select box to searchable */
         $('.select2').select2({
