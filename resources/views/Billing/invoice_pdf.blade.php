@@ -121,6 +121,8 @@
 <body>
     <div class="invoice-container">
         <div class="header">
+            <strong>GSTIN : </strong>
+            <span>{{ GSTIN }}</span><br>
             <strong>Invoice No : </strong>
             <span>{{ $invoice->invoice_number }}</span><br>
             <strong>Date : </strong>
@@ -139,9 +141,10 @@
             <div class="shop-details">
                 <h2>Shop Details:</h2>
                 <p><strong>{{SHOP_NAME}}</strong></p>
-                <p>{{ SHOP_ADDRESS }}</p>
                 <p>Phone: {{ SHOP_PHONE }}</p>
                 <p>Email: {{ SHOP_EMAIL }}</p>
+                <p>Address: {{ SHOP_ADDRESS }}</p>
+                <p>Pincode: {{ SHOP_PINCODE }}</p>
             </div>
         </div>
         <table class="invoice-items" width="100%" style="border-collapse: collapse;">

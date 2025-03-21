@@ -21,7 +21,11 @@ if (!defined('SHOP_NAME')) {
 }
 
 if (!defined('SHOP_ADDRESS')) {
-    define('SHOP_ADDRESS', 'Poolampatti');
+    define('SHOP_ADDRESS', 'Kottayur, Mottangaadu, Sankagiri');
+}
+
+if (!defined('SHOP_PINCODE')) {
+    define('SHOP_PINCODE', '637 104');
 }
 
 if (!defined('SHOP_PHONE')) {
@@ -30,4 +34,8 @@ if (!defined('SHOP_PHONE')) {
 
 if (!defined('SHOP_EMAIL')) {
     define('SHOP_EMAIL', 'vikramperumal0747@gmail.com');
+}
+
+if (!defined('GSTIN')) {
+    define('GSTIN', '33AENPE1845G1ZQ');
 }
