@@ -98,7 +98,8 @@
                                     @foreach ([
                                         ['title' => 'Total Sales', 'count' => '₹' . number_format($total_amount, 2), 'icon' => 'wallet', 'bg' => 'primary', 'text' => 'Last 30 Days'],
                                         ['title' => 'Total Income', 'count' => '₹' . number_format($income, 2), 'icon' => 'wallet', 'bg' => 'success', 'text' => 'Last 30 Days'],
-                                        ['title' => 'Pending Payments', 'count' => '₹' . number_format($balances, 2), 'icon' => 'wallet', 'bg' => 'danger', 'text' => 'Last 30 Days']
+                                        ['title' => 'Pending Payments', 'count' => '₹' . number_format($balances, 2), 'icon' => 'wallet', 'bg' => 'danger', 'text' => 'Last 30 Days'],
+                                        ['title' => 'Purchased', 'count' => '₹' . number_format($purchased->sum('total_amount'), 2), 'icon' => 'wallet', 'bg' => 'info', 'text' => 'Last 30 Days']
                                     ] as $card)
                                         <div class="col-md-6 mb-4">
                                             <div class="card text-white bg-gradient-{{ $card['bg'] }} dashboard-card">
@@ -118,9 +119,9 @@
                 </div>  
             </div>
 
-            {{-- Overall Stats --}}
             <div class="col-md-6 mb-4">
                 <div class="row">
+                    {{-- Overall Stats --}}
                     <div class="col-md-12 my-2">
                         <div class="card">
                             <div class="card-header">
@@ -132,6 +133,33 @@
                                         ['title' => 'Total Orders', 'count' => count($sales), 'icon' => 'shopping-cart', 'bg' => 'primary', 'text' => 'Last 30 days'],
                                         ['title' => 'Customers', 'count' => count($customers), 'icon' => 'users', 'bg' => 'warning', 'text' => 'Total Customers'],
                                         ['title' => 'Pending Orders', 'count' => $invoices->where('balance_amount', '!=', 0)->count(), 'icon' => 'box-open', 'bg' => 'danger', 'text' => 'Overall']
+                                    ] as $card)
+                                        <div class="col-md-6 mb-4">
+                                            <div class="card text-white bg-gradient-{{ $card['bg'] }} dashboard-card">
+                                                <div class="card-body">
+                                                    <i class="fas fa-{{ $card['icon'] }} card-icon"></i>
+                                                    <h5 class="card-title">{{ $card['title'] }}</h5>
+                                                    <h3>{{ $card['count'] }}</h3>
+                                                    <p class="card-text">{{ $card['text'] }}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {{-- Inventory Stats --}}
+                    <div class="col-md-12 my-2">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="text-center">Stock Stats</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    @foreach ([
+                                        ['title' => 'Low Stocks', 'count' => $variants->where('stock_quantity', '<', 10)->count(), 'icon' => 'box-open', 'bg' => 'warning', 'text' => 'Overall'],
+                                        ['title' => 'No Stocks', 'count' => $variants->where('stock_quantity', '==', 0)->count(), 'icon' => 'box-open', 'bg' => 'danger', 'text' => 'Overall']
                                     ] as $card)
                                         <div class="col-md-6 mb-4">
                                             <div class="card text-white bg-gradient-{{ $card['bg'] }} dashboard-card">
