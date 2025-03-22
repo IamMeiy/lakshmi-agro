@@ -4,22 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
-class ProductVariant extends Model
-{
-    /** @use HasFactory<\Database\Factories\ProductVariantFactory> */
+
+class Purchase extends Model {
     use HasFactory, SoftDeletes;
+    
+    protected $fillable = ['total_amount', 'purchase_date'];
 
-    /* to define which dont wnat to add or insert */
-    protected $guarded = [];
-
-    public function product(){
-        return $this->belongsTo(Product::class);
-    }
-
-    public function purchases() {
+    public function items() {
         return $this->hasMany(PurchaseItem::class);
     }
 

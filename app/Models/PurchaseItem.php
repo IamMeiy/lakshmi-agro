@@ -7,20 +7,24 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Auth;
 
-class ProductVariant extends Model
-{
-    /** @use HasFactory<\Database\Factories\ProductVariantFactory> */
+class PurchaseItem extends Model {
     use HasFactory, SoftDeletes;
 
-    /* to define which dont wnat to add or insert */
-    protected $guarded = [];
+    protected $fillable = [
+        'purchase_id', 
+        'product_variant_id', 
+        'previous_stock', 
+        'purchased_stock', 
+        'balance_stock', 
+        'purchase_price'
+    ];
 
-    public function product(){
-        return $this->belongsTo(Product::class);
+    public function productVariant() {
+        return $this->belongsTo(ProductVariant::class,'product_variant_id');
     }
 
-    public function purchases() {
-        return $this->hasMany(PurchaseItem::class);
+    public function purchase() {
+        return $this->belongsTo(Purchase::class);
     }
 
     protected static function boot()
@@ -50,3 +54,4 @@ class ProductVariant extends Model
         });
     }
 }
+

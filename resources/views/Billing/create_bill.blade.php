@@ -31,7 +31,9 @@
                         <select name="product" class="form-control select2" id="variant" data-placeholder="Select Product">
                             <option value="">Select Product</option>
                             @forelse ($variants as $variant)
-                                <option value="{{ $variant->id }}">{{ $variant->product->name }} - {{ $variant->quantity }}g</option>
+                                @if ($variant->stock_quantity != 0)
+                                    <option value="{{ $variant->id }}">{{ $variant->product->name }} - {{ $variant->quantity }}g</option>
+                                @endif
                             @empty
                                 <div class="text-center">
                                     No Product available

@@ -42,42 +42,56 @@
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
+            <li class="nav-item {{ request()->routeIs('dashboard') ? 'active' : ''}}">
                 <a class="nav-link" href="{{ route('dashboard') }}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span>
                 </a>
             </li>
             
-            <li class="nav-item active">
+            <li class="nav-item {{ request()->routeIs('customer.index') ? 'active' : ''}}">
                 <a class="nav-link" href="{{ route('customer.index') }}">
                     <i class="fas fa-solid fa-users"></i>
                     <span>Customer</span>
                 </a>
             </li>
             
-            <li class="nav-item active">
+            <li class="nav-item {{ request()->routeIs('category.index') ? 'active' : ''}}">
                 <a class="nav-link" href="{{ route('category.index') }}">
                     <i class="fas fa-solid fa-layer-group"></i>
                     <span>Category</span>
                 </a>
             </li>
             
-            <li class="nav-item active">
+            <li class="nav-item {{ request()->routeIs(['product.index', 'variant.index']) ? 'active' : ''}}">
                 <a class="nav-link" href="{{ route('product.index') }}">
                     <i class="fas fa-solid fa-list"></i>
                     <span>Products</span>
                 </a>
             </li>
             
-            <li class="nav-item active">
+            <li class="nav-item {{ request()->routeIs(['invoice.index', 'invoice.create', 'invoice.viewBill']) ? 'active' : ''}}">
                 <a class="nav-link" href="{{ route('invoice.index') }}">
                     <i class="fas fa-solid fa-receipt"></i>
                     <span>Billing</span>
                 </a>
             </li>
 
-            <li class="nav-item active">
+            <li class="nav-item {{ request()->routeIs('inventory.index') ? 'active' : ''}}">
+                <a class="nav-link" href="{{ route('inventory.index') }}">
+                    <i class="fas fa-solid fa-warehouse"></i>
+                    <span>Inventory</span>
+                </a>
+            </li>
+
+            <li class="nav-item {{ request()->routeIs(['purchase.index', 'purchase.create']) ? 'active' : ''}}">
+                <a class="nav-link" href="{{ route('purchase.index') }}">
+                    <i class="fas fa-solid fa-store"></i>
+                    <span>Purchase</span>
+                </a>
+            </li>
+
+            <li class="nav-item {{ request()->routeIs('user.index') ? 'active' : ''}}">
                 <a class="nav-link" href="{{ route('user.index') }}">
                     <i class="fas fa-solid fa-user"></i>
                     <span>User</span>
@@ -355,10 +369,13 @@
     <script src="{{ ASSET_PATH }}/custom/sweetalert/sweetalert2.js"></script>
     <script src="{{ ASSET_PATH }}/custom/select2/select2.min.js"></script>
     <script>
+        select2();
         /* this will convert normal select box to searchable */
-        $('.select2').select2({
-            theme: 'classic',
-        });
+        function select2(){
+            $('.select2').select2({
+                theme: 'classic',
+            });
+        }
 
         /* this function get the bill details to edit */
         function editBillDetails(id){

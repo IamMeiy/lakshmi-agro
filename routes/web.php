@@ -3,10 +3,12 @@
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductVariantController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -50,6 +52,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/variant/edit/{id}', [ProductVariantController::class, 'edit'])->name('variant.edit');
     Route::post('/variant/update', [ProductVariantController::class, 'update'])->name('variant.update');
     Route::get('/variant/delete/{id}', [ProductVariantController::class, 'delete'])->name('variant.delete');
+    Route::get('/get-variant', [ProductVariantController::class, 'getVariant'])->name('get.variant');
     
     Route::get('/invoice', [InvoiceController::class, 'index'])->name('invoice.index');
     Route::get('/invoice/table', [InvoiceController::class, 'getData'])->name('invoice.table');
@@ -63,9 +66,17 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/invoice/download/{id}', [InvoiceController::class, 'downloadPdf'])->name('invoice.download');
     Route::get('/invoice/preview/{id}', [InvoiceController::class, 'previewPdf'])->name('invoice.preview');
     
-
+    Route::get('/inventory', [InventoryController::class, 'index'])->name('inventory.index');
+    Route::get('/inventory/table', [InventoryController::class, 'getData'])->name('inventory.table');
     
-    Route::get('/get-variant', [ProductVariantController::class, 'getVariant'])->name('get.variant');
+    Route::get('/purchases', [PurchaseController::class, 'index'])->name('purchase.index');
+    Route::get('/purchase/create', [PurchaseController::class, 'create'])->name('purchase.create');
+    Route::post('/purchase/store', [PurchaseController::class, 'store'])->name('purchase.store');
+    Route::get('/purchase/data', [PurchaseController::class, 'getPurchases'])->name('purchase.table');
+    Route::get('/purchase/view/{id}', [PurchaseController::class, 'show'])->name('purchase.show');  // View Purchase
+    Route::get('/purchase/edit/{id}', [PurchaseController::class, 'edit'])->name('purchase.edit');  // Edit Purchase
+    Route::post('/purchase/update', [PurchaseController::class, 'update'])->name('purchase.update');  // Update Purchase
+    Route::delete('/purchase/{id}', [PurchaseController::class, 'destroy'])->name('purchase.destroy');
 });
 
 
