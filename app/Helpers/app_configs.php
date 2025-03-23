@@ -1,7 +1,7 @@
 <?php
 
 if (!defined('APP_URL')) {
-    define('APP_URL', 'http://localhost/lakshmi-agro');
+    define('APP_URL', 'http://lakshmi-agro.test');
 }
 
 if (!defined('ASSET_PATH')) {

@@ -2,7 +2,6 @@
 <html lang="en">
 
 <head>
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -12,14 +11,14 @@
     <title>@yield('title')</title>
 
     <!-- Custom fonts for this template-->
-    <link href="{{ ASSET_PATH }}/template/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link href="{{ ASSET_PATH }}/custom/fonts.css" rel="stylesheet">
+    <link href="{{ asset('template/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('custom/fonts.css') }}" rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link href="{{ ASSET_PATH }}/template/css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="{{ asset('template/css/sb-admin-2.min.css') }}" rel="stylesheet">
 
     {{-- for Select 2 --}}
-    <link href="{{ ASSET_PATH }}/custom/select2/select2.min.css" rel="stylesheet" />
+    <link href="{{ asset('custom/select2/select2.min.css') }}" rel="stylesheet" />
 </head>
 
 <body id="page-top">
@@ -220,7 +219,7 @@
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ auth()->user()->name }}</span>
                                 <img class="img-profile rounded-circle"
-                                    src="{{ ASSET_PATH }}/template/img/undraw_profile.svg">
+                                    src="{{ asset('template/img/undraw_profile.svg') }}">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -347,27 +346,29 @@
     </div>
 
     <!-- Bootstrap core JavaScript-->
-    <script src="{{ ASSET_PATH }}/template/vendor/jquery/jquery.min.js"></script>
-    <script src="{{ ASSET_PATH }}/template/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ asset('template/vendor/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('template/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 
     <!-- Core plugin JavaScript-->
-    <script src="{{ ASSET_PATH }}/template/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="{{ asset('template/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
 
     <!-- Custom scripts for all pages-->
-    <script src="{{ ASSET_PATH }}/template/js/sb-admin-2.min.js"></script>
+    <script src="{{ asset('template/js/sb-admin-2.min.js') }}"></script>
 
     <!-- Page level plugins -->
-    <script src="{{ ASSET_PATH }}/template/vendor/chart.js/Chart.min.js"></script>
+    <script src="{{ asset('template/vendor/chart.js/Chart.min.js') }}"></script>
 
     <!-- Page level custom scripts -->
-    <script src="{{ ASSET_PATH }}/template/js/demo/chart-area-demo.js"></script>
-    <script src="{{ ASSET_PATH }}/template/js/demo/chart-pie-demo.js"></script>
+    <script src="{{ asset('template/js/demo/chart-area-demo.js') }}"></script>
+    <script src="{{ asset('template/js/demo/chart-pie-demo.js') }}"></script>
 
-    <script src="{{ ASSET_PATH }}/custom/datatable/dataTables.js"></script>
-    <script src="{{ ASSET_PATH }}/custom/datatable/dataTables.bootstrap4.js"></script>
-    {{-- For Sweet message alert --}}
-    <script src="{{ ASSET_PATH }}/custom/sweetalert/sweetalert2.js"></script>
-    <script src="{{ ASSET_PATH }}/custom/select2/select2.min.js"></script>
+    <script src="{{ asset('custom/datatable/dataTables.js') }}"></script>
+    <script src="{{ asset('custom/datatable/dataTables.bootstrap4.js') }}"></script>
+
+    <!-- For Sweet message alert -->
+    <script src="{{ asset('custom/sweetalert/sweetalert2.js') }}"></script>
+    <script src="{{ asset('custom/select2/select2.min.js') }}"></script>
+
     <script>
         select2();
         /* this will convert normal select box to searchable */
